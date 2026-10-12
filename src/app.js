@@ -1,19 +1,30 @@
-// Módulo que mantiene la colección de proyectos
-// y gestiona las operaciones sobre ella
+// Mantiene los proyectos y permite añadir proyectos y tareas.
+// Los datos viven en memoria: todavía no se guardan al recargar la página.
 
 import { createProject } from "./project.js";
 
-const general = createProject("General");
+// Crea el proyecto inicial: { name: "General", todos: [] }.
+const defaultProject = createProject("General");
 
-const projects = [general];
+// Colección de proyectos. Cada objeto proyecto contiene su propio array todos.
+// Al principio solo contiene General, sin tareas. No se crea una copia del objeto.
+const projects = [defaultProject];
 
+// Permite consultar la colección desde otros módulos.
+// Devuelve el mismo array, no una copia ni un proyecto nuevo.
 export function getProjects() {
     return projects;
 }
 
-// Añade el objeto a la colección de la aplicación
+// Crea un proyecto con el nombre recibido y lo añade a la colección.
+export function addProject(name) {
+    const project = createProject(name);
+    projects.push(project);
+}
 
-export function addProject(nombre) {
-    const proyecto = createProject(nombre);
-    projects.push(proyecto);
+// Recibe un objeto proyecto y un objeto tarea que ya existen.
+// Añade la tarea al array todos de ese proyecto, conservando las anteriores.
+// No necesita return: modifica directamente el array del proyecto recibido.
+export function addTodoToProject(project, todo) {
+    project.todos.push(todo);
 }
