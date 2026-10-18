@@ -7,4 +7,13 @@ export function projects(name) {
 
 export function addTodoProject(project, todo) {
     project.todos.push(todo);
-};
+}
+
+export function removeTodoProject(project, todo) {
+    const index = project.todos.indexOf(todo);
+
+    if(index !== -1) {
+        project.todos.splice(index, 1);
+    }
+}
+
