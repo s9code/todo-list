@@ -1,8 +1,11 @@
 import { todo } from "./todo.js";
 import { projects } from "./project.js";
 import { addTodoProject } from "./project.js";
-import { updateTodo } from "./todo.js";
-import { toggleTodoComplete } from "./todo.js";
+//import { updateTodo } from "./todo.js";
+//import { toggleTodoComplete } from "./todo.js";
+//import { removeTodoProject } from "./project.js";
+import { createProjectElement } from "./dom.js";
+import { createTodoElement } from "./dom.js";
 
 // creacion de tareas
 
@@ -19,17 +22,37 @@ const pendientes = projects("Pendientes")
 
 addTodoProject(general, tarea1);
 
-addTodoProject(pendientes, tarea2);
+addTodoProject(general, tarea2);
 
-// modificar una tarea
+/*
+modificar una tarea
 
 updateTodo(tarea1, "Actualizado", "Array en top", "2024-10-03", "baja");
+*/
 
-// cambia el estado completed
+/*
+cambia el estado completed
 
-toggleTodoComplete(tarea1);
+//toggleTodoComplete(tarea1);
+*/
 
-// mostrar los proyectos y las tareas dentro
+/*
+borra una tarea de un proyecto
 
-console.log(pendientes);
-console.log(general);
+//removeTodoProject(general, tarea1);
+*/
+
+const htmlGeneral = createProjectElement(general);
+const htmlPendientes = createProjectElement(pendientes);
+
+document.body.appendChild(htmlGeneral);
+
+general.todos.forEach((todo) => {
+    const htmlTodo = createTodoElement(todo);
+    document.body.appendChild(htmlTodo);
+})
+
+document.body.appendChild(htmlPendientes);
+
+
+
