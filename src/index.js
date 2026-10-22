@@ -2,7 +2,7 @@ import { todo } from "./todo.js";
 import { projects } from "./project.js";
 import { addTodoProject } from "./project.js";
 //import { updateTodo } from "./todo.js";
-//import { toggleTodoComplete } from "./todo.js";
+import { toggleTodoComplete } from "./todo.js";
 //import { removeTodoProject } from "./project.js";
 import { createProjectElement } from "./dom.js";
 import { createTodoElement } from "./dom.js";
@@ -31,28 +31,22 @@ updateTodo(tarea1, "Actualizado", "Array en top", "2024-10-03", "baja");
 */
 
 /*
-cambia el estado completed
-
-//toggleTodoComplete(tarea1);
-*/
-
-/*
 borra una tarea de un proyecto
 
 //removeTodoProject(general, tarea1);
 */
 
-const htmlGeneral = createProjectElement(general);
-const htmlPendientes = createProjectElement(pendientes);
+const GeneralHtml = createProjectElement(general);
+const pendientesHtml = createProjectElement(pendientes);
 
-document.body.appendChild(htmlGeneral);
+document.body.appendChild(GeneralHtml);
 
 general.todos.forEach((todo) => {
-    const htmlTodo = createTodoElement(todo);
-    document.body.appendChild(htmlTodo);
+    const todos = createTodoElement(todo, toggleTodoComplete);
+    document.body.appendChild(todos);
 })
 
-document.body.appendChild(htmlPendientes);
+document.body.appendChild(pendientesHtml);
 
 
 

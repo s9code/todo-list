@@ -8,16 +8,27 @@ export function createProjectElement(project) {
     return projects;
 }
 
-export function createTodoElement(todo) {
+export function createTodoElement(todo, onCompleteChange) {
+    
     const container = document.createElement("div");
-    const todos = document.createElement("h3");
+    const titleElement = document.createElement("h3");
     const date = document.createElement("p");
+    const checkbox = document.createElement("input");
 
-    container.appendChild(todos);
+    checkbox.type = "checkbox";
+
+    checkbox.addEventListener("change", () => {
+        onCompleteChange(todo);
+    });
+
+    container.appendChild(titleElement);
     container.appendChild(date);
+    container.appendChild(checkbox);
 
-    todos.textContent = todo.title;
+    titleElement.textContent = todo.title;
     date.textContent = todo.dueDate;
+    checkbox.checked = todo.completed;
+
     
     return container;
 }
