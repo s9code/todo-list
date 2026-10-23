@@ -14,6 +14,7 @@ export function createTodoElement(todo, onCompleteChange) {
     const titleElement = document.createElement("h3");
     const date = document.createElement("p");
     const checkbox = document.createElement("input");
+    const deleteBtn = document.createElement("button");
 
     checkbox.type = "checkbox";
 
@@ -24,10 +25,12 @@ export function createTodoElement(todo, onCompleteChange) {
     container.appendChild(titleElement);
     container.appendChild(date);
     container.appendChild(checkbox);
+    container.appendChild(deleteBtn);
 
     titleElement.textContent = todo.title;
     date.textContent = todo.dueDate;
     checkbox.checked = todo.completed;
+    deleteBtn.textContent = "Eliminar";
 
     
     return container;
