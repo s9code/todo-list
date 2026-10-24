@@ -1,5 +1,6 @@
-//Crear elementos HTML
+// Creamos los elementos HTML y conectamos sus eventos con las funciones recibidas.
 
+// Creamos el título del proyecto y lo devolvemos para añadirlo a la página desde index.js.
 export function createProjectElement(project) {
 
     const projects = document.createElement("h1");
@@ -8,8 +9,11 @@ export function createProjectElement(project) {
     return projects;
 }
 
-export function createTodoElement(todo, onCompleteChange) {
+// Recibimos los datos de una tarea y dos funciones que index.js pasa como argumentos.
+// onCompleteChange recibe toggleTodoComplete; onDelete recibe deleteTodo.
+export function createTodoElement(todo, onCompleteChange, onDelete) {
     
+    // Este contenedor agrupa todos los elementos de una sola tarea.
     const container = document.createElement("div");
     const titleElement = document.createElement("h3");
     const date = document.createElement("p");
@@ -18,20 +22,32 @@ export function createTodoElement(todo, onCompleteChange) {
 
     checkbox.type = "checkbox";
 
+    // La callback se ejecuta cuando cambia el checkbox, no al crear el elemento.
     checkbox.addEventListener("change", () => {
+        // Llamamos a toggleTodoComplete pasándole la tarea de este checkbox.
         onCompleteChange(todo);
     });
 
+    deleteBtn.addEventListener("click", () => {
+        // Primero llamamos a deleteTodo para borrar la tarea de los datos del proyecto.
+        onDelete(todo);
+        // Después quitamos de la pantalla el contenedor de esta tarea.
+        container.remove();
+    });
+
+    // Agrupamos el título, la fecha, el checkbox y el botón dentro del contenedor.
     container.appendChild(titleElement);
     container.appendChild(date);
     container.appendChild(checkbox);
     container.appendChild(deleteBtn);
 
+    // Mostramos los datos de la tarea y su estado inicial en el checkbox.
     titleElement.textContent = todo.title;
     date.textContent = todo.dueDate;
     checkbox.checked = todo.completed;
     deleteBtn.textContent = "Eliminar";
 
     
+    // Devolvemos el contenedor para que index.js lo añada a la página.
     return container;
 }
