@@ -61,7 +61,6 @@ export function createTodoForm(onAddTodo) {
     submitBtn.type = "submit";
 
     submitBtn.textContent = "Añadir tarea";
-    
     form.appendChild(titleInput);
     form.appendChild(submitBtn);
 
@@ -76,4 +75,11 @@ export function createTodoForm(onAddTodo) {
     });
 
     return form;
+}
+
+export function generalContainer() {
+    const container = document.createElement("div");
+
+
+    return container;
 }

@@ -7,6 +7,7 @@ import { removeTodoProject } from "./project.js";
 import { createProjectElement } from "./dom.js";
 import { createTodoElement } from "./dom.js";
 import { createTodoForm } from "./dom.js";
+import { generalContainer } from "./dom.js";
 
 // Creamos los datos de las tareas; todavía no aparecen en pantalla.
 
@@ -35,27 +36,37 @@ function addTodo(title) {
     const newTodo = todo( title, "", "", "");
     addTodoProject(general, newTodo);
     const todoElement = createTodoElement(newTodo, toggleTodoComplete, deleteTodo);
-    document.body.appendChild(todoElement);
+    //document.body.appendChild(todoElement);
+    containerGeneral.appendchild(todoElement);
+
 }
 
 // Creamos los elementos HTML que muestran los nombres de los proyectos.
 const generalElement = createProjectElement(general);
+const containerGeneral = generalContainer();
 const pendientesElement = createProjectElement(pendientes);
 
 const todoFormElement = createTodoForm(addTodo);
 
 document.body.appendChild(todoFormElement);
 
+document.body.appendChild(containerGeneral);
+
 // Añadimos el nombre del proyecto General a la página.
 document.body.appendChild(generalElement);
+
+
 
 // Recorremos sus tareas para crear y mostrar el elemento HTML de cada una.
 general.todos.forEach((todo) => {
     // Pasamos las funciones sin ejecutarlas: dom.js las llamará al interactuar.
     // toggleTodoComplete se recibe como onCompleteChange y deleteTodo como onDelete.
     const todoElement = createTodoElement(todo, toggleTodoComplete, deleteTodo);
-    document.body.appendChild(todoElement);
+    //document.body.appendChild(todoElement);
+    containerGeneral.appendChild(todoElement);
 })
 
 // Mostramos el nombre del proyecto Pendientes, que por ahora no tiene tareas.
 document.body.appendChild(pendientesElement);
+
+
