@@ -55,13 +55,37 @@ export function createTodoElement(todo, onCompleteChange, onDelete) {
 export function createTodoForm(onAddTodo) {
     const form = document.createElement("form");
     const titleInput = document.createElement("input");
+    const description = document.createElement("textarea");
+    const date = document.createElement("input")
+    const priority = document.createElement("select");
     const submitBtn = document.createElement("button");
 
     titleInput.type = "text";
+    date.type = "date"
     submitBtn.type = "submit";
-
     submitBtn.textContent = "Añadir tarea";
+
+    const highOption = document.createElement("option");
+    highOption.value = "alta";
+    highOption.textContent = "Alta";
+
+    const mediumOption = document.createElement("option");
+    mediumOption.value = "media";
+    mediumOption.textContent = "Media";
+
+    const lowOption = document.createElement("option");
+    lowOption.value = "baja";
+    lowOption.textContent = "Baja";
+
+    priority.appendChild(highOption);
+    priority.appendChild(mediumOption);
+    priority.appendChild(lowOption);
+    
+
     form.appendChild(titleInput);
+    form.appendChild(description);
+    form.appendChild(date);
+    form.appendChild(priority);
     form.appendChild(submitBtn);
 
     form.addEventListener("submit", (event) => {
@@ -69,8 +93,11 @@ export function createTodoForm(onAddTodo) {
         if (titleInput.value.trim() === "") {
             return;
         }
-        onAddTodo(titleInput.value);
+        onAddTodo(titleInput.value, description.value, date.value, priority.value);
         titleInput.value = "";
+        description.value = "";
+        date.value = "";
+        priority.value = "alta";
         titleInput.focus();
     });
 

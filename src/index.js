@@ -32,30 +32,17 @@ function deleteTodo(todo) {
     removeTodoProject(general, todo);
 }
 
-function addTodo(title) {
-    const newTodo = todo( title, "", "", "");
-    addTodoProject(general, newTodo);
-    const todoElement = createTodoElement(newTodo, toggleTodoComplete, deleteTodo);
-    //document.body.appendChild(todoElement);
-    containerGeneral.appendchild(todoElement);
-
-}
 
 // Creamos los elementos HTML que muestran los nombres de los proyectos.
 const generalElement = createProjectElement(general);
-const containerGeneral = generalContainer();
 const pendientesElement = createProjectElement(pendientes);
-
 const todoFormElement = createTodoForm(addTodo);
+const containerGeneral = generalContainer();
 
 document.body.appendChild(todoFormElement);
-
-document.body.appendChild(containerGeneral);
-
 // Añadimos el nombre del proyecto General a la página.
 document.body.appendChild(generalElement);
-
-
+document.body.appendChild(containerGeneral);
 
 // Recorremos sus tareas para crear y mostrar el elemento HTML de cada una.
 general.todos.forEach((todo) => {
@@ -65,6 +52,14 @@ general.todos.forEach((todo) => {
     //document.body.appendChild(todoElement);
     containerGeneral.appendChild(todoElement);
 })
+
+function addTodo(title, description, date, priority) {
+    const newTodo = todo( title, description, date, priority);
+    addTodoProject(general, newTodo);
+    const todoElement = createTodoElement(newTodo, toggleTodoComplete, deleteTodo);
+    //document.body.appendChild(todoElement);
+    containerGeneral.appendChild(todoElement);
+}
 
 // Mostramos el nombre del proyecto Pendientes, que por ahora no tiene tareas.
 document.body.appendChild(pendientesElement);
