@@ -51,3 +51,29 @@ export function createTodoElement(todo, onCompleteChange, onDelete) {
     // Devolvemos el contenedor para que index.js lo añada a la página.
     return container;
 }
+
+export function createTodoForm(onAddTodo) {
+    const form = document.createElement("form");
+    const titleInput = document.createElement("input");
+    const submitBtn = document.createElement("button");
+
+    titleInput.type = "text";
+    submitBtn.type = "submit";
+
+    submitBtn.textContent = "Añadir tarea";
+    
+    form.appendChild(titleInput);
+    form.appendChild(submitBtn);
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (titleInput.value.trim() === "") {
+            return;
+        }
+        onAddTodo(titleInput.value);
+        titleInput.value = "";
+        titleInput.focus();
+    });
+
+    return form;
+}

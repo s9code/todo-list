@@ -6,6 +6,7 @@ import { toggleTodoComplete } from "./todo.js";
 import { removeTodoProject } from "./project.js";
 import { createProjectElement } from "./dom.js";
 import { createTodoElement } from "./dom.js";
+import { createTodoForm } from "./dom.js";
 
 // Creamos los datos de las tareas; todavía no aparecen en pantalla.
 
@@ -30,9 +31,20 @@ function deleteTodo(todo) {
     removeTodoProject(general, todo);
 }
 
+function addTodo(title) {
+    const newTodo = todo( title, "", "", "");
+    addTodoProject(general, newTodo);
+    const todoElement = createTodoElement(newTodo, toggleTodoComplete, deleteTodo);
+    document.body.appendChild(todoElement);
+}
+
 // Creamos los elementos HTML que muestran los nombres de los proyectos.
 const generalElement = createProjectElement(general);
 const pendientesElement = createProjectElement(pendientes);
+
+const todoFormElement = createTodoForm(addTodo);
+
+document.body.appendChild(todoFormElement);
 
 // Añadimos el nombre del proyecto General a la página.
 document.body.appendChild(generalElement);
