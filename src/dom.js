@@ -1,5 +1,7 @@
 // Creamos los elementos HTML y conectamos sus eventos con las funciones recibidas.
 
+import { addTodoProject } from "./project.js";
+
 // Creamos el título del proyecto y lo devolvemos para añadirlo a la página desde index.js.
 export function createProjectElement(project) {
 
@@ -106,7 +108,32 @@ export function createTodoForm(onAddTodo) {
 
 export function generalContainer() {
     const container = document.createElement("div");
-
+    
 
     return container;
+}
+
+export function createProjectForm(onAddProject) {
+
+    const form = document.createElement("form");
+    const titleInput = document.createElement("input");
+    const submitBtn = document.createElement("button");
+
+    titleInput.type = "text";
+    submitBtn.type = "submit"
+
+    submitBtn.textContent = "Añadir Proyecto";
+
+    form.appendChild(titleInput);
+    form.appendChild(submitBtn);
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (titleInput.value.trim() === "") {
+            return;
+        }
+        onAddProject(titleInput.value);
+    })
+
+    return form;
 }

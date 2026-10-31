@@ -8,6 +8,7 @@ import { createProjectElement } from "./dom.js";
 import { createTodoElement } from "./dom.js";
 import { createTodoForm } from "./dom.js";
 import { generalContainer } from "./dom.js";
+import { createProjectForm } from "./dom.js";
 
 // Creamos los datos de las tareas; todavía no aparecen en pantalla.
 
@@ -18,7 +19,9 @@ const tarea2 = todo("bucles", "bucles en top", "2026-02-04", "alta");
 
 const general = projects("General");
 
-const pendientes = projects("Pendientes")
+const pendientes = projects("Pendientes");
+
+const collection = [general, pendientes];
 
 // Guardamos las dos tareas en el array de tareas del proyecto General.
 
@@ -32,12 +35,12 @@ function deleteTodo(todo) {
     removeTodoProject(general, todo);
 }
 
-
 // Creamos los elementos HTML que muestran los nombres de los proyectos.
 const generalElement = createProjectElement(general);
 const pendientesElement = createProjectElement(pendientes);
 const todoFormElement = createTodoForm(addTodo);
 const containerGeneral = generalContainer();
+const containerCollection = createProjectForm(addProject);
 
 document.body.appendChild(todoFormElement);
 // Añadimos el nombre del proyecto General a la página.
@@ -64,4 +67,13 @@ function addTodo(title, description, date, priority) {
 // Mostramos el nombre del proyecto Pendientes, que por ahora no tiene tareas.
 document.body.appendChild(pendientesElement);
 
+document.body.appendChild(containerCollection);
 
+
+function addProject(title) {
+    const newProject = projects(title);
+    collection.push(newProject);
+    const projectElement = createProjectElement(newProject);
+    document.body.appendChild(projectElement);
+    console.log(collection);
+}
