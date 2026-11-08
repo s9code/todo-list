@@ -13,3 +13,11 @@ export function crearProyectos(nombre) {
 export function agregarTareaAProyecto(proyecto, tarea) {
     proyecto.tareas.push(tarea);
 }
+
+export function eliminarTarea(proyecto, tarea) {
+    const indice = proyecto.tareas.indexOf(tarea);
+
+    if(indice !== -1) {
+        proyecto.tareas.splice(indice, 1);
+    }
+}
