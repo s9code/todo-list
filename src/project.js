@@ -1,10 +1,15 @@
-// Crea objetos proyecto, que agrupan tareas en su array todos.
+import { crearTarea } from "./todo.js"
 
-// Recibe el nombre y devuelve directamente un objeto proyecto nuevo.
-export function createProject(name) {
+// Crea y devuelve un proyecto con su nombre y una colección de tareas vacía.
+
+export function crearProyectos(nombre) {
     return {
-        name: name,
-        // Cada proyecto empieza sin tareas y tiene su propio array.
-        todos: []
-    };
+        nombre,
+        tareas: []
+    }
+}
+
+// Añade la tarea recibida a la colección de tareas del proyecto indicado.
+export function agregarTareaAProyecto(proyecto, tarea) {
+    proyecto.tareas.push(tarea);
 }
