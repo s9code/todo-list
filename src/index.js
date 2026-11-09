@@ -5,14 +5,15 @@
 
 import { crearTarea, modificarTarea, modificarEstado } from "./todo.js";
 import { crearProyectos, agregarTareaAProyecto, eliminarTarea } from "./project.js";
+import {crearElementoProyecto} from "./dom.js";
 
 const hobbies = crearTarea("Deporte", "Futbol", "20.03.97", "alta");
 
 console.log(hobbies);
 
-const proyecto = crearProyectos("Aficiones");
+const aficiones = crearProyectos("Aficiones");
 
-agregarTareaAProyecto(proyecto, hobbies);
+agregarTareaAProyecto(aficiones, hobbies);
 
 modificarTarea(hobbies, "Literatura", "Cioran", "20.03.97", "prioridad");
 
@@ -25,11 +26,25 @@ console.log(hobbies.estado);
 const compra = crearTarea("Comprar fruta", "Manzanas y plátanos", "2026-11-10", "media");
 const lectura = crearTarea("Leer un capítulo", "Continuar el libro pendiente", "2026-11-12", "baja");
 
-agregarTareaAProyecto(proyecto, compra);
-agregarTareaAProyecto(proyecto, lectura);
+agregarTareaAProyecto(aficiones, compra);
+agregarTareaAProyecto(aficiones, lectura);
 
-console.log(proyecto);
+console.log(aficiones);
 
-eliminarTarea(proyecto, compra);
+eliminarTarea(aficiones, compra);
 
-console.log(proyecto);
+console.log(aficiones);
+
+const proyectos = [];
+
+const general = crearProyectos("General");
+
+proyectos.push(general, aficiones);
+
+console.log(proyectos);
+
+const contenedor = document.querySelector("#contenedor");
+
+proyectos.forEach((elemento) => {
+    contenedor.appendChild(crearElementoProyecto(elemento));
+})
