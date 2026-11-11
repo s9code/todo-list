@@ -1,50 +1,49 @@
-// Punto de entrada de la aplicación: carga los estilos y conecta los módulos.
-
-//import "./style.css";
-//import "./app.js"
-
-import { crearTarea, modificarTarea, modificarEstado } from "./todo.js";
+import { crearTarea } from "./todo.js";
 import { crearProyectos, agregarTareaAProyecto, eliminarTarea } from "./project.js";
-import {crearElementoProyecto} from "./dom.js";
+import {crearElementoProyecto, crearElementoTarea} from "./dom.js";
 
-const hobbies = crearTarea("Deporte", "Futbol", "20.03.97", "alta");
+// Contenedores del DOM donde se mostrarán los proyectos y las tareas.
+const contenedorProyectos = document.querySelector("#contenedorProyectos");
+const contenedorTareas = document.querySelector("#contenedorTareas");
 
-console.log(hobbies);
-
+// Crea los proyectos y las tareas iniciales de la aplicación.
+const general = crearProyectos("General");
 const aficiones = crearProyectos("Aficiones");
 
-agregarTareaAProyecto(aficiones, hobbies);
-
-modificarTarea(hobbies, "Literatura", "Cioran", "20.03.97", "prioridad");
-
-modificarEstado(hobbies);
-console.log(hobbies.estado);
-
-modificarEstado(hobbies);
-console.log(hobbies.estado);
-
+const hobbies = crearTarea("Deporte", "Futbol", "20.03.97", "alta");
 const compra = crearTarea("Comprar fruta", "Manzanas y plátanos", "2026-11-10", "media");
 const lectura = crearTarea("Leer un capítulo", "Continuar el libro pendiente", "2026-11-12", "baja");
 
+// Asigna las tareas a sus respectivos proyectos.
+agregarTareaAProyecto(general, hobbies);
 agregarTareaAProyecto(aficiones, compra);
 agregarTareaAProyecto(aficiones, lectura);
 
-console.log(aficiones);
-
-eliminarTarea(aficiones, compra);
-
-console.log(aficiones);
-
+// Guarda todos los proyectos en un único array.
 const proyectos = [];
-
-const general = crearProyectos("General");
-
 proyectos.push(general, aficiones);
 
-console.log(proyectos);
-
-const contenedor = document.querySelector("#contenedor");
-
+// Recorre los proyectos y muestra sus elementos en el DOM.
 proyectos.forEach((elemento) => {
-    contenedor.appendChild(crearElementoProyecto(elemento));
+    contenedorProyectos.appendChild(crearElementoProyecto(elemento, seleccionarProyecto));
 })
+
+// Proyecto seleccionado inicialmente.
+let proyectoActivo = general;
+
+// Cambia el proyecto activo y actualiza las tareas visibles.
+function seleccionarProyecto(proyecto) {
+   
+    proyectoActivo = proyecto;
+
+    // Limpia las tareas que había en pantalla
+    contenedorTareas.textContent = "";
+
+    //Recorre las tareas del proyecto activo y las muestra
+    proyectoActivo.tareas.forEach((elemento) => {
+        contenedorTareas.appendChild(crearElementoTarea(elemento));
+    })
+
+}
+
+seleccionarProyecto(general);

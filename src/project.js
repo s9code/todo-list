@@ -1,7 +1,4 @@
-import { crearTarea } from "./todo.js"
-
 // Crea y devuelve un proyecto con su nombre y una colección de tareas vacía.
-
 export function crearProyectos(nombre) {
     return {
         nombre,
@@ -9,11 +6,12 @@ export function crearProyectos(nombre) {
     }
 }
 
-// Añade la tarea recibida a la colección de tareas del proyecto indicado.
+// Añade una tarea al array de tareas del proyecto indicado.
 export function agregarTareaAProyecto(proyecto, tarea) {
     proyecto.tareas.push(tarea);
 }
 
+// Busca una tarea en el proyecto y la elimina si existe.
 export function eliminarTarea(proyecto, tarea) {
     const indice = proyecto.tareas.indexOf(tarea);
 
